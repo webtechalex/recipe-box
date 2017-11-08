@@ -17,11 +17,11 @@ export const removeRecipe = (name) => {
   }
 }
 
-export const editRecipe = (id, name, ingredients) => {
+export const editRecipe = (prevName, newName, ingredients) => {
   return {
     type: EDIT_RECIPE,
-    id,
-    name,
+    prevName,
+    newName,
     ingredients
   }
 }

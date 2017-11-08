@@ -7,7 +7,7 @@ const recipesReducer = (state = [], action) => {
     case REMOVE_RECIPE:
       return state.filter(recipe => recipe.name !== action.name);
     case EDIT_RECIPE:
-      return state.map(recipe => recipe.name == action.id ? {name: action.name, ingredients: action.ingredients} : recipe);
+      return state.map(recipe => recipe.name == action.prevName ? {name: action.newName, ingredients: action.ingredients} : recipe);
     default:
       return state;
   }
