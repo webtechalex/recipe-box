@@ -1,7 +1,11 @@
 import React from 'react';
 
+import Container from './Container';
+
 const App = () => {
-  return (<h1>Hello world!!</h1>);
+  return (
+    <Container />
+  );
 }
 
 export default App;
