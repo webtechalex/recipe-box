@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 
 import recipesReducer from '../src/reducers/recipes';
-import {addRecipe, removeRecipe} from '../src/actions';
+import {addRecipe, removeRecipe, editRecipe} from '../src/actions';
 
 describe('Test environment', function() {
   it('should run a test', function() {
@@ -48,7 +48,7 @@ describe('Application state', function() {
         name: 'Pizza',
         ingredients: ['dough', 'cheese', 'tomato', 'pepperoni', 'anchovies']
       }
-    ]
+    ];
     const newState = [
       {
         name: 'Pomodoro Pasta',
@@ -60,5 +60,36 @@ describe('Application state', function() {
       }
     ];
     expect(recipesReducer(oldState, removeRecipe('Pizza'))).to.eql(newState);
+  });
+  it('should edit the correct recipe from the application state with action EDIT_RECIPE', function() {
+    const oldState = [
+      {
+        name: 'Pomodoro Pasta',
+        ingredients: ['cheese', 'tomoatoes', 'pasta', 'brocolli', 'chillis']
+      },
+      {
+        name: 'Chickpea and Veggie Burger',
+        ingredients: ['chickpeas', 'peppers', 'tomato', 'cheese', 'chillis']
+      },
+      {
+        name: 'Pizza',
+        ingredients: ['dough', 'cheese', 'tomato', 'pepperoni', 'anchovies']
+      }
+    ];
+    const newState = [
+      {
+        name: 'Pomodoro Pasta',
+        ingredients: ['cheese', 'tomoatoes', 'pasta', 'brocolli', 'chillis']
+      },
+      {
+        name: 'Chickpea and Veggie Burger',
+        ingredients: ['chickpeas', 'peppers', 'tomato', 'cheese', 'chillis']
+      },
+      {
+        name: 'Chicken Pizza',
+        ingredients: ['dough', 'cheese', 'pepperoni', 'chicken', 'black olives', 'jalapenos', 'red onions']
+      }
+    ];
+    expect(recipesReducer(oldState, editRecipe('Pizza', 'Chicken Pizza', ['dough', 'cheese', 'pepperoni', 'chicken', 'black olives', 'jalapenos', 'red onions']))).to.eql(newState);
   });
 });
