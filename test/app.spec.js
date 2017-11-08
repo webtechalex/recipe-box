@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 
 import recipesReducer from '../src/reducers/recipes';
-import {addRecipe} from '../src/actions';
+import {addRecipe, removeRecipe} from '../src/actions';
 
 describe('Test environment', function() {
   it('should run a test', function() {
@@ -33,5 +33,32 @@ describe('Application state', function() {
       }
     ];
     expect(recipesReducer([], addRecipe('Pizza', ['dough', 'cheese', 'tomato', 'pepperoni', 'anchovies']))).to.eql(newState);
+  });
+  it('should remove the correct recipe from the application state with action: REMOVE_RECIPE', function() {
+    const oldState = [
+      {
+        name: 'Pomodoro Pasta',
+        ingredients: ['cheese', 'tomoatoes', 'pasta', 'brocolli', 'chillis']
+      },
+      {
+        name: 'Chickpea and Veggie Burger',
+        ingredients: ['chickpeas', 'peppers', 'tomato', 'cheese', 'chillis']
+      },
+      {
+        name: 'Pizza',
+        ingredients: ['dough', 'cheese', 'tomato', 'pepperoni', 'anchovies']
+      }
+    ]
+    const newState = [
+      {
+        name: 'Pomodoro Pasta',
+        ingredients: ['cheese', 'tomoatoes', 'pasta', 'brocolli', 'chillis']
+      },
+      {
+        name: 'Chickpea and Veggie Burger',
+        ingredients: ['chickpeas', 'peppers', 'tomato', 'cheese', 'chillis']
+      }
+    ];
+    expect(recipesReducer(oldState, removeRecipe('Pizza'))).to.eql(newState);
   });
 });

@@ -1,4 +1,5 @@
 export const ADD_RECIPE = 'ADD_RECIPE';
+export const REMOVE_RECIPE = 'REMOVE_RECIPE';
 
 export const addRecipe = (name, ingredients) => {
   return {
@@ -7,3 +8,10 @@ export const addRecipe = (name, ingredients) => {
     ingredients
   };
 };
+
+export const removeRecipe = (name) => {
+  return {
+    type: REMOVE_RECIPE,
+    name
+  }
+}
