@@ -96,7 +96,7 @@ describe('Application state', function() {
 });
 
 describe('Input fields', function() {
-  let defaultState = {
+  const defaultState = {
     name: '',
     ingredients: ''
   }
@@ -112,5 +112,34 @@ describe('Input fields', function() {
       name: 'Pizza',
     }
     expect(editRecipeName('Pizza')).to.eql(action);
+  });
+  it('should return the correct action from editRecipeIngredients action creator', function() {
+    const action = {
+      type: 'EDIT_RECIPE_INGREDIENTS',
+      ingredients: 'tomatoes, dough, black olives, jalapenos, chicken',
+    }
+    expect(editRecipeIngredients('tomatoes, dough, black olives, jalapenos, chicken')).to.eql(action);
+  });
+  it('should edit recipe name from the correct recipe with action: EDIT_RECIPE_NAME', function() {
+    const oldRecipe = {
+      name: 'Pizza',
+      ingredients: 'tomatoes, dough, black olives, jalapenos, chicken'
+    }
+    const newRecipe = {
+      name: 'Chicken Pizza',
+      ingredients: 'tomatoes, dough, black olives, jalapenos, chicken'
+    } 
+    expect(inputReducer(oldRecipe, editRecipeName('Chicken Pizza'))).to.eql(newRecipe);
+  });
+  it('should edit recipe ingredients from the correct recipe with action: EDIT_RECIPE_INGREDIENTS', function() {
+    const oldRecipe = {
+      name: 'Pizza',
+      ingredients: 'tomatoes, dough, black olives, jalapenos, chicken'
+    }
+    const newRecipe = {
+      name: 'Pizza',
+      ingredients: 'tomatoes, dough, black olives, jalapenos, pepperoni, chillis'
+    } 
+    expect(inputReducer(oldRecipe, editRecipeIngredients('tomatoes, dough, black olives, jalapenos, pepperoni, chillis'))).to.eql(newRecipe);
   });
 });
