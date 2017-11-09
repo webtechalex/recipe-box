@@ -1,7 +1,8 @@
 import {expect} from 'chai';
 
 import recipesReducer from '../src/reducers/recipes';
-import {addRecipe, removeRecipe, editRecipe} from '../src/actions';
+import inputReducer from '../src/reducers/input';
+import {addRecipe, removeRecipe, editRecipe, editRecipeName, editRecipeIngredients} from '../src/actions';
 
 describe('Test environment', function() {
   it('should run a test', function() {
@@ -91,5 +92,25 @@ describe('Application state', function() {
       }
     ];
     expect(recipesReducer(oldState, editRecipe('Pizza', 'Chicken Pizza', ['dough', 'cheese', 'pepperoni', 'chicken', 'black olives', 'jalapenos', 'red onions']))).to.eql(newState);
+  });
+});
+
+describe('Input fields', function() {
+  let defaultState = {
+    name: '',
+    ingredients: ''
+  }
+  it('should return the initial state when no action is given', function() {
+    expect(inputReducer()).to.eql(defaultState);
+  });
+  it('should return the previous state given an unrecognised action', function() {
+    expect(inputReducer({name: 'Pizza', ingredients: 'tomatoes, dough, black olives, jalapenos, chicken'}, 'BBBLLLLLLLLLAAAAAAAAAAAHHH')).to.eql({name: 'Pizza', ingredients: 'tomatoes, dough, black olives, jalapenos, chicken'});
+  });
+  it('should return the correct action from editRecipeName action creator', function() {
+    const action = {
+      type: 'EDIT_RECIPE_NAME',
+      name: 'Pizza',
+    }
+    expect(editRecipeName('Pizza')).to.eql(action);
   });
 });
