@@ -3,23 +3,25 @@ import { connect } from 'react-redux';
 
 class RecipeList extends Component {
   renderRecipe(recipeData) {
-    const name = recipeData.name;
+    const { name } = recipeData;
     const noSpacesName = recipeData.name.replace(' ', '');
-    const ingredients = recipeData.ingredients.split(',').map(ingredient => <li>{ingredient.trim()}</li>);
+    const ingredients = recipeData.ingredients.split(',').map(ingredient => <li key={ingredient}>{ingredient.trim()}</li>);
 
     return (
-      <div className="card" key={name}>
+      <div key={noSpacesName} className="card">
         <div className="card-header" role="tab" id={`heading${noSpacesName}`}>
           <h5 className="mb-0">
-            <a data-toggle="collapse" data-parent="#accordion" href={`#collapse${noSpacesName}`} aria-expanded="true" aria-controls={`collapse${noSpacesName}`}>
+            <a data-toggle="collapse" data-parent="#accordion" href={`#collapse${noSpacesName}`} aria-expanded="false" aria-controls={`collapse${noSpacesName}`}>
               {name}
             </a>
           </h5>
         </div>
   
-        <div id={`collapse${noSpacesName}`} className="collapse show" role="tabpanel" aria-labelledby={`heading${noSpacesName}`}>
+        <div id={`collapse${noSpacesName}`} className="collapse" role="tabpanel" aria-labelledby={`heading${noSpacesName}`}>
           <div className="card-block">
             {ingredients}
+            <button type="button" className="btn btn-primary">Edit</button>
+            <button type="button" className="btn btn-danger">Delete</button>
           </div>
         </div>
       </div>
@@ -27,10 +29,20 @@ class RecipeList extends Component {
   }
 
   render() {
-    console.log(this.props.recipes);
     return (
-      <div id="accordion" role="tablist" aria-multiselectable="true">
-        {this.props.recipes.map(this.renderRecipe)}
+      <div>
+        <div 
+          id="accordion" 
+          role="tablist" 
+          aria-multiselectable="true">
+          {this.props.recipes.map(this.renderRecipe)}
+        </div>
+        <button 
+          type="button" 
+          className="btn btn-primary"
+          data-toggle="modal"
+          data-target="#recipeModal">
+          Add Recipe</button>
       </div>
     );
   }
