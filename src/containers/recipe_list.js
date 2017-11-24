@@ -48,7 +48,7 @@ class RecipeList extends Component {
           data-target="#recipeModal">
           Add Recipe
         </button>
-        <Modal title="Add a recipe" />
+        <Modal title="Add a recipe" buttonName="Add Recipe" buttonClickAction={this.props.addRecipe} />
       </div>
     );
   }
