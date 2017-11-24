@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addRecipe } from '../actions';
+
+import Modal from '../components/modal';
 
 class RecipeList extends Component {
   renderRecipe(recipeData) {
@@ -42,7 +46,9 @@ class RecipeList extends Component {
           className="btn btn-primary"
           data-toggle="modal"
           data-target="#recipeModal">
-          Add Recipe</button>
+          Add Recipe
+        </button>
+        <Modal title="Add a recipe" />
       </div>
     );
   }
@@ -52,4 +58,8 @@ function mapStateToProps({ recipes }) {
   return { recipes };
 }
 
-export default connect(mapStateToProps)(RecipeList);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addRecipe }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeList);
